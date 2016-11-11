@@ -1,0 +1,57 @@
+<md-toolbar class="md-theme-indigo">
+    <div class="md-toolbar-tools">
+        <img src="img/logo_w.png" width="50">
+        <span flex></span>
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="item in [{'user':'Alex Guaman'}]">
+                <img ng-src="img/logo_w.png" class="md-avatar" alt="{{item.who}}">
+                <div class="md-list-item-text">
+                    <h3 style="color: white;">{{item.user}}</h3>
+                </div>
+                <md-divider md-inset ng-if="!$last"></md-divider>
+            </md-list-item>
+        </md-list>
+        <md-menu md-position-mode="target-right target">
+            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in [1, 2, 3]">
+                    <md-button ng-click="ctrl.announceClick($index)">
+                        <div layout="row" flex>
+                            <p flex>Option {{item}}</p>
+                            <md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>
+                        </div>
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>
+<div layout="row">
+    <section layout="row" flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+        <md-content layout-padding>
+            <md-list ng-cloak>
+                <div ng-repeat="item in menus">
+                    <md-list-item ng-show="item.submenu.length==0" ng-click="navigateTo(item.link)">
+                        <md-icon md-svg-icon="{{item.icon}}"></md-icon>
+                        <p> {{item.titulo}} </p>
+                    </md-list-item>
+                  <div ng-show="item.submenu.length>0">
+                    <md-subheader class="md-no-sticky">{{item.titulo}}</md-subheader>
+                    <md-divider></md-divider>
+                    <md-list-item ng-click="navigateTo(submenu.link)" ng-repeat="submenu in item.submenu">
+                        <md-icon md-svg-icon="{{submenu.icon}}"></md-icon>
+                        <p> {{submenu.titulo}} </p>
+                    </md-list-item>
+                    </div>
+                </div>
+            </md-list>
+        </md-content>
+    </md-sidenav>
+</section>
+<div flex-xs layout="column" flex-gt-md="80">
+    <div app-view-segment="1"></div>
+</div>
+</div>

@@ -1,0 +1,50 @@
+<div flex flex-order="-1" flex="grow">
+<div flex flex-order="-1" flex="25"></div>
+<div flex flex-order="1">
+<br>
+</div>
+</div>
+<div layout="row" class="animated fadeInRight">
+  <div flex flex-order="-1" flex="25">  </div>
+  <div flex flex-order="1">
+    <md-card>
+     <md-toolbar class="demo-toolbar" >
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding"><i class="material-icons md-48">account_circle</i> Ingreso</h3>
+          <span flex="" class="flex"></span>
+        </div>
+      </md-toolbar>
+        <md-card-content>
+        <div style="text-align: center;">
+        	<img src="img/logo.png" width="75">
+        </div>
+        <form name="accesoform" id="accesoform">
+             <md-input-container class="md-icon-float md-block">
+		      <label>Usuario</label>
+		      <md-icon md-svg-src="img/icons/user.svg"  class="name"></md-icon>
+		      <input ng-model="data.email" name="email" type="text" required>
+		      <div ng-messages="accesoform.email.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs >
+                <label>Contraeña</label>
+                <md-icon md-svg-src="img/icons/key.svg" class="name"></md-icon>
+                <input type="password" name="password" ng-model="data.password" required/>
+                <div ng-messages="accesoform.password.$error">
+                  <div ng-message="required">Contraseña requerido</div>
+                </div>
+            </md-input-container>
+          </form>
+        </md-card-content>
+        <md-dialog-actions layout="row">
+            <!-- <md-button class="md-warn md-raised md-hue-2" ng-click="ctrl.cancel()"> Cancelar </md-button> -->
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit" ng-click="login()" ng-disabled="accesoform.$invalid">
+              Ingresar
+            </md-button>
+        </md-dialog-actions>
+    </md-card>
+  </div>
+  <div flex flex-order="2" flex-order-gt-md="1" flex="25"></div>
+</div>

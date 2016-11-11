@@ -1,0 +1,134 @@
+<div layout="row">
+<div flex="40">
+      <md-card>
+      	  <md-toolbar class="demo-toolbar">
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding"><md-icon md-svg-src="img/icons/user-outline.svg" class="name"></md-icon> Añadir Usuario</h3>
+          <span flex="" class="flex"></span>
+        </div>
+      </md-toolbar>
+        <md-card-content>
+        <form name="addform" id="addform" ng-submit="save_user()">
+             <md-input-container class="md-icon-float md-block">
+		      <label>Cedula</label>
+		      <md-icon md-svg-src="img/icons/id-card.svg"  class="name"></md-icon>
+		      <input ng-model="data.cedula" name="cedula" type="text" required>
+		      <div ng-messages="addform.cedula.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Nombres</label>
+		      <md-icon md-svg-src="img/icons/input.svg"  class="name"></md-icon>
+		      <input ng-model="data.nombres" name="nombres" type="text" required>
+		      <div ng-messages="addform.nombres.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Apeliidos</label>
+		      <md-icon md-svg-src="img/icons/input.svg"  class="name"></md-icon>
+		      <input ng-model="data.apellidos" name="apellidos" type="text" required>
+		      <div ng-messages="addform.apellidos.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Fecha de Nacimiento</label>
+		      <md-icon md-svg-src="img/icons/calendar.svg"  class="name"></md-icon>&nbsp;
+		     &nbsp; &nbsp; <md-datepicker ng-model="data.fecha_nac" ></md-datepicker>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Email</label>
+		      <md-icon md-svg-src="img/icons/envelope.svg"  class="name"></md-icon>
+		      <input ng-model="data.email" name="email" type="text" required>
+		      <div ng-messages="addform.email.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Tipo de Usuario</label>
+		      <md-icon md-svg-src="img/icons/list.svg"  class="name"></md-icon>
+		      <input ng-model="data.tipo_user" name="tipo_user" type="text" required>
+		      <div ng-messages="addform.tipo_user.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-divider></md-divider>
+		    <h3>DATOS DE INGRESO</h3>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Usuario</label>
+		      <md-icon md-svg-src="img/icons/user.svg"  class="name"></md-icon>
+		      <input ng-model="data.user" name="user" type="text" required>
+		      <div ng-messages="addform.user.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+		    <md-input-container class="md-icon-float md-block">
+		      <label>Contraseña</label>
+		      <md-icon md-svg-src="img/icons/key.svg"  class="name"></md-icon>
+		      <input ng-model="data.pass" name="pass" type="password" required>
+		      <div ng-messages="addform.pass.$error">
+                  <div ng-message="required">Usuario requerido</div>
+                </div>
+		    </md-input-container>
+          </form>
+        </md-card-content>
+         <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="addform.$invalid">
+              Guardar
+            </md-button>
+        </md-dialog-actions>
+        </md-card>
+</div>&nbsp;
+<div flex>
+<md-card>
+    <md-toolbar class="demo-toolbar">
+        <div class="md-toolbar-tools">
+            <h3 class="ng-binding"><md-icon md-svg-src="img/icons/list-users.svg" class="name"></md-icon> Listado de Usuarios</h3>
+            <span flex="" class="flex"></span>
+        </div>
+    </md-toolbar>
+    <md-card-content>
+        <md-toolbar class="md-table-toolbar md-default">
+         <md-input-container>
+            <label>Buscar................</label>
+            <input type="text" ng-model="filterText" flex="25">
+        	<md-button class="md-icon-button" aria-label="Eliminar Usario">
+          		<md-icon md-svg-src="img/icons/delete-user.svg" ></md-icon>
+        	</md-button>
+        </md-input-container>
+        </md-toolbar>
+        <md-table-container>
+            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                    <tr md-row>
+                        <th md-column md-numeric>#</th>
+						<th md-column md-numeric>CEDULA</th>
+						<th md-column md-numeric>NOMBRES COMPLETOS</th>
+						<th md-column md-numeric>EMAIL</th>
+						<th md-column md-numeric>PERFIL</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="usuario in usuarios">
+                        <td md-cell>{{usuario.id}}</td>
+                        <td md-cell>{{usuario.cedula}}</td>
+                        <td md-cell>{{usuario.nombres}}</td>
+                        <td md-cell>{{usuario.email}}</td>
+                        <td md-cell>ver-Perfil</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+    </md-card-content>
+    </md-card>
+    </div>
+</div>
+<style type="text/css">
+.md-datepicker-button{
+ display: none;
+}
+</style>
