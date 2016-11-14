@@ -22,16 +22,16 @@
              <md-input-container class="md-icon-float md-block">
 		      <label>Usuario</label>
 		      <md-icon md-svg-src="img/icons/user.svg"  class="name"></md-icon>
-		      <input ng-model="data.email" name="email" type="text" required>
-		      <div ng-messages="accesoform.email.$error">
+		      <input ng-model="data.usuario" name="usuario" type="text" required>
+		      <div ng-messages="accesoform.usuario.$error">
                   <div ng-message="required">Usuario requerido</div>
                 </div>
 		    </md-input-container>
             <md-input-container class="md-block" flex-gt-xs >
                 <label>Contraeña</label>
                 <md-icon md-svg-src="img/icons/key.svg" class="name"></md-icon>
-                <input type="password" name="password" ng-model="data.password" required/>
-                <div ng-messages="accesoform.password.$error">
+                <input type="password" name="pass" ng-model="data.pass" required/>
+                <div ng-messages="accesoform.pass.$error">
                   <div ng-message="required">Contraseña requerido</div>
                 </div>
             </md-input-container>

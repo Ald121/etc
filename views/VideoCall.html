@@ -16,8 +16,8 @@
              <md-input-container class="md-icon-float md-block tab-left">
               <label>Nombre de la Sala</label>
               <md-icon md-svg-src="img/icons/input.svg"  class="name"></md-icon>
-              <input ng-model="data.nombre_sala" name="nombre_sala" type="text" required>
-              <div ng-messages="addform.nombre_sala.$error">
+              <input ng-model="data.nombre_tema" name="nombre_tema" type="text" required>
+              <div ng-messages="addform.nombre_tema.$error">
                   <div ng-message="required">Usuario requerido</div>
                 </div>
             </md-input-container>
@@ -46,28 +46,27 @@
         </md-input-container>
         </md-toolbar>
         <md-table-container>
-            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="getDesserts">
-                    <tr md-row>
-                        <th md-column md-numeric>#</th>
-                        <th md-column md-numeric>NOMBRES COMPLETOS</th>
-                        <th md-column md-numeric>EMAIL</th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="usuario in usuarios">
-                        <td md-cell>{{usuario.id}}</td>
-                        <td md-cell>{{usuario.nombres}}</td>
-                    </tr>
-                </tbody>
-            </table>
+          <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
+            <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
+              <tr md-row>
+                <th md-column md-order-by="name"><span>Nombres Apellidos</span></th>
+                <th md-column md-order-by="type"><span>Email</span></th>
+              </tr>
+            </thead>
+            <tbody md-body>
+              <tr md-row md-select="usuario" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="usuario in usuarios">
+                <td md-cell>{{usuario.nombres+' '+usuario.apellidos}}</td>
+                <td md-cell>{{usuario.email}}</td>
+              </tr>
+            </tbody>
+          </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
           </form>
         </md-card-content>
             <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" type="submit" ng-disabled="addform.$invalid">
+            <md-button class="md-raised md-primary" type="submit" ng-click="crear_sala()" ng-disabled="addform.$invalid">
               CREAR SALA Y ENVIAR SOLICITUDES
             </md-button>
         </md-dialog-actions>
@@ -93,7 +92,7 @@
         </md-toolbar>
         <md-table-container>
             <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-                <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                <thead md-head md-order="query.order" md-on-reorder="getRooms">
                     <tr md-row>
                         <th md-column md-numeric>TÍTULO</th>
                         <th md-column md-numeric>FECHA</th>
@@ -103,17 +102,25 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="usuario in usuarios">
-                        <td md-cell>{{usuario.id}}</td>
-                        <td md-cell>{{usuario.cedula}}</td>
-                        <td md-cell>{{usuario.nombres}}</td>
-                        <td md-cell>{{usuario.email}}</td>
-                        <td md-cell>ver-Perfil</td>
+                    <tr md-row md-select="room" md-select-id="name" md-auto-select ng-repeat="room in rooms">
+                        <td md-cell>{{room.nombre_tema}}</td>
+                        <td md-cell>{{room.fecha}}</td>
+                        <td md-cell>{{room.hora}}</td>
+                        <td md-cell>
+                        <div ng-class="{'state-warnning':room.estado==='ENESPERA','state-ok':room.estado==='ACTIVO','state-error':room.estado==='CERRADO','state-info':room.estado==='PAUSA'}" >
+                           <strong>{{room.estado}}</strong>
+                        </div>
+                        </td>
+                        <td md-cell>
+                        <md-button class="md-raised md-primary" ng-show="room.estado==='PAUSA'" type="button">
+                          REANUNDAR
+                        </md-button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getRooms" md-page-select></md-table-pagination>
     </md-card-content>
     </md-card>
     </div>
@@ -121,5 +128,17 @@
 <style type="text/css">
 .tab-left{
         margin-left: 5%;
+}
+.state-warnning{
+        color: #ffaa27;
+}
+.state-ok{
+        color: rgb(76,175,80);
+}
+.state-error{
+        color: red;
+}
+.state-info{
+        color: rgb(0, 134, 244);;
 }
 </style>

@@ -34,14 +34,14 @@
         <md-content layout-padding>
             <md-list ng-cloak>
                 <div ng-repeat="item in menus">
-                    <md-list-item ng-show="item.submenu.length==0" ng-click="navigateTo(item.link)">
+                    <md-list-item ng-show="item.submenu.length==0" ng-click="navigateTo(item.link,item)" ng-class="{ 'nav-active': item == activeItem }">
                         <md-icon md-svg-icon="{{item.icon}}"></md-icon>
                         <p> {{item.titulo}} </p>
                     </md-list-item>
                   <div ng-show="item.submenu.length>0">
                     <md-subheader class="md-no-sticky">{{item.titulo}}</md-subheader>
                     <md-divider></md-divider>
-                    <md-list-item ng-click="navigateTo(submenu.link)" ng-repeat="submenu in item.submenu">
+                    <md-list-item ng-click="navigateTo(submenu.link,submenu)" ng-repeat="submenu in item.submenu" ng-class="{ 'nav-active': submenu == activeItem }">
                         <md-icon md-svg-icon="{{submenu.icon}}"></md-icon>
                         <p> {{submenu.titulo}} </p>
                     </md-list-item>
@@ -55,3 +55,10 @@
     <div app-view-segment="1"></div>
 </div>
 </div>
+
+<style type="text/css">
+.nav-active {
+  background-color: rgba(76, 175, 80, 0.51);
+  color: white;
+}
+</style>
