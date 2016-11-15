@@ -1,9 +1,31 @@
 var app=angular.module('app');
 
-app.controller('homeController',function($scope,$location,$localStorage){
+app.controller('homeController',function($scope,$location,$localStorage,ServiciosGenerales,ServiciosAmigos,$rootScope){
+	$scope.selected = [];
+
+	$scope.query_amigos = {
+	    filter: '',
+	    num_registros: 5,
+	    page:1,
+	    limit: '10',
+	    page_num: 1,
+	    fecha_inicio:'',
+	    fecha_fin:'',
+	    ordenarPor:''
+  	};
+
+	function success(desserts) {
+    $scope.usuarios = desserts.respuesta.data;
+  	};
+
+	 $scope.getAmigos = function () {
+    $scope.promise_users = ServiciosAmigos.misAmigos().get($scope.query_amigos, success).$promise;
+  	};
 
 	if ($localStorage.datosUser) {
 		$scope.datosUser=$localStorage.datosUser;
+		$scope.imgPerfil=ServiciosGenerales.server().ETC()+$localStorage.datosUser.foto;
+		$scope.ip=ServiciosGenerales.server().ETC();
 
 		if ($scope.datosUser.tipo_user=='ADMIN') {
 			$scope.menus=[
@@ -14,17 +36,28 @@ app.controller('homeController',function($scope,$location,$localStorage){
 				{titulo:'REPORTES',submenu:[{titulo:'Reporte de temas',icon:'img/icons/document.svg',link:'/home/Reporte-temas'}]}
 				]
 				$scope.inicio = $scope.menus[1].submenu[0].link;
-				$scope.activeItem = $scope.menus[1].submenu[0];
+				
 		}
 
 		if ($scope.datosUser.tipo_user=='CLIENTE') {
 			$scope.menus=[
 				{titulo:'INICIO',icon:'img/icons/home.svg',link:'/home',submenu:[],link:'/home/Dashboard-C'}
 			]
-			$scope.activeItem = $scope.menus[0];
 			$scope.inicio = $scope.menus[0].link;
 		}
-		$location.path($scope.inicio);
+		if ($location.path()==$scope.inicio||$location.path()=='/home') {
+			$location.path($scope.inicio);
+			if ($scope.datosUser.tipo_user=='ADMIN') {
+				$scope.activeItem = $scope.menus[1].submenu[0];
+			}
+			if ($scope.datosUser.tipo_user=='CLIENTE') {
+				$scope.activeItem = $scope.menus[0];
+			}
+		}
+		// $location.path($scope.inicio);
+		$scope.getAmigos();
+	}else{
+		$location.path('/');
 	}
 	
 	$scope.navigateTo = function(valor,item) {
@@ -32,5 +65,14 @@ app.controller('homeController',function($scope,$location,$localStorage){
 		$location.path(valor);
 	};
 
-	$scope.selected = [];
+	$scope.logout=function(){
+		console.log('salir');
+		$localStorage.$reset();
+		$location.path('/');
+	}  
+
+        $rootScope.$on("getRemoteAmigos", function(){
+           $scope.getAmigos();
+        });
+
 });

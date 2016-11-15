@@ -3,24 +3,24 @@
         <img src="img/logo_w.png" width="50">
         <span flex></span>
         <md-list>
-            <md-list-item class="md-3-line" ng-repeat="item in [{'user':'Alex Guaman'}]">
-                <img ng-src="img/logo_w.png" class="md-avatar" alt="{{item.who}}">
+            <md-list-item class="md-3-line">
+                <img ng-src="{{imgPerfil}}" class="md-avatar" alt="{{datosUser.nombres}}" style="margin-top: 6%;">
                 <div class="md-list-item-text">
-                    <h3 style="color: white;">{{item.user}}</h3>
+                    <h3 style="color: white;">{{datosUser.nombres+' '+datosUser.apellidos}}</h3>
                 </div>
                 <md-divider md-inset ng-if="!$last"></md-divider>
             </md-list-item>
         </md-list>
-        <md-menu md-position-mode="target-right target">
+        <md-menu md-position-mode="target-right target" >
             <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                 <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
             </md-button>
             <md-menu-content width="4">
-                <md-menu-item ng-repeat="item in [1, 2, 3]">
-                    <md-button ng-click="ctrl.announceClick($index)">
+                <md-menu-item >
+                    <md-button ng-click="logout()">
                         <div layout="row" flex>
-                            <p flex>Option {{item}}</p>
-                            <md-icon md-menu-align-target md-svg-icon="call:portable-wifi-off" style="margin: auto 3px auto 0;"></md-icon>
+                            <p flex>Cerrar Sesión</p>
+                            <md-icon md-menu-align-target md-svg-icon="img/icons/logout.svg" style="margin: auto 3px auto 0;"></md-icon>
                         </div>
                     </md-button>
                 </md-menu-item>

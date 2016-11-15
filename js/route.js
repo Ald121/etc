@@ -29,13 +29,14 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                     .segment('AddUser', {
                         // 'default': true,
                         templateUrl: 'views/AddUser.html',
-                        // controller: 'appsCtrl'
+                        controller: 'AmigosController'
                     })
                     .segment('SearchUser', {
                         templateUrl: 'views/SearchUser.html',
                         // controller: 'appsCtrl'
                     })
                     .segment('VideoCall', {
+                        // 'default': true,
                         templateUrl: 'views/VideoCall.html',
                         controller: 'RoomsController'
                     })

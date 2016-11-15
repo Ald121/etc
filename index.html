@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Index</title>
 	<!-- Angular Material CSS now available via Google CDN; version 1.0.7 used here -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet"> -->
     <link href="css/icon.css"  rel="stylesheet">
 	<!-- Angular Components -->
@@ -16,12 +16,13 @@
 	<script src="bower_components/angular-route-segment/build/angular-route-segment.js"></script>
 	<script src="bower_components/angular-aria/angular-aria.min.js"></script>
 	<script src="bower_components/ngStorage/ngStorage.min.js"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
 	<!-- style sheet -->
 	<link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
 	<!-- module -->
 	<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
 	<!-- iconos -->
-	    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script> 
     <!-- Angular Material Javascript now available via Google CDN; version 1.0.7 used here -->
     <script src="bower_components/angular-material/angular-material.min.js"></script>
 	<!-- Core -->
@@ -31,10 +32,14 @@
 	<script src="js/controllers/login.js"></script>
 	<script src="js/controllers/home.js"></script>
 	<script src="js/controllers/rooms.js"></script>
+	<script src="js/controllers/amigos.js"></script>
 	<!-- Servicios -->
 	<script src="js/services/Generales.js"></script>
 	<script src="js/services/Login-Registro.js"></script>
 	<script src="js/services/Rooms.js"></script>
+	<script src="js/services/Amigos.js"></script>
+	<!-- Directives -->
+	<script src="js/directives/directives.js"></script>
 </head>
 <body>
 <div app-view-segment="0" ></div>

@@ -3,7 +3,7 @@ app.service('ServiciosGenerales', function($resource) {
 	this.server = function() {
         return {
             ETC: function() {
-                return "http://192.168.0.105/serviciosETC/";
+                return "http://192.168.0.108/serviciosETC/";
             }
         }
     };

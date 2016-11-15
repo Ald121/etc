@@ -8,8 +8,8 @@
         </div>
       </md-toolbar>
         <md-card-content>
-        <form name="addform" id="addform" ng-submit="save_user()">
-             <md-input-container class="md-icon-float md-block">
+        <form name="addform" id="addform" >
+        <md-input-container class="md-icon-float md-block">
 		      <label>Cedula</label>
 		      <md-icon md-svg-src="img/icons/id-card.svg"  class="name"></md-icon>
 		      <input ng-model="data.cedula" name="cedula" type="text" required>
@@ -26,7 +26,7 @@
                 </div>
 		    </md-input-container>
 		    <md-input-container class="md-icon-float md-block">
-		      <label>Apeliidos</label>
+		      <label>Apellidos</label>
 		      <md-icon md-svg-src="img/icons/input.svg"  class="name"></md-icon>
 		      <input ng-model="data.apellidos" name="apellidos" type="text" required>
 		      <div ng-messages="addform.apellidos.$error">
@@ -36,7 +36,7 @@
 		    <md-input-container class="md-icon-float md-block">
 		      <label>Fecha de Nacimiento</label>
 		      <md-icon md-svg-src="img/icons/calendar.svg"  class="name"></md-icon>&nbsp;
-		     &nbsp; &nbsp; <md-datepicker ng-model="data.fecha_nac" ></md-datepicker>
+		     &nbsp; &nbsp; <md-datepicker ng-model="data.fecha_nac"></md-datepicker>
 		    </md-input-container>
 		    <md-input-container class="md-icon-float md-block">
 		      <label>Email</label>
@@ -54,6 +54,11 @@
                   <div ng-message="required">Usuario requerido</div>
                 </div>
 		    </md-input-container>
+        <md-input-container class="md-icon-float md-block tab-left">
+                        <label>Dirección</label>
+                        <md-icon md-svg-src="img/icons/input.svg" class="name"></md-icon>
+                        <textarea ng-model="data.direccion" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+        </md-input-container>
 		    <md-divider></md-divider>
 		    <h3>DATOS DE INGRESO</h3>
 		    <md-input-container class="md-icon-float md-block">
@@ -72,11 +77,23 @@
                   <div ng-message="required">Usuario requerido</div>
                 </div>
 		    </md-input-container>
+                <md-input-container class="md-icon-float md-block">
+        <md-icon md-svg-src="img/icons/image.svg"  class="name"></md-icon>
+          <input type="file" aria-label nv-file-select="" uploader="uploader" required/>
+                            <div ng-repeat="item in uploader.queue">
+                                <div ng-if="controller.isImage(item._file)">
+                                    <div ng-thumb="{ file: item._file, height: 100 }" style="text-align: center; margin-top: 45px;"></div>
+                                    <md-button style="position: absolute; top: 30%; left: 59%;" class="md-icon-button" ng-click="item.remove()">
+                                    <md-icon md-svg-src="img/icons/remove.svg" ></md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+        </md-input-container>
           </form>
         </md-card-content>
          <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button class="md-raised md-primary" type="submit" ng-disabled="addform.$invalid">
+            <md-button class="md-raised md-primary" type="submit" ng-click="add_user()" ng-disabled="addform.$invalid">
               Guardar
             </md-button>
         </md-dialog-actions>
@@ -104,16 +121,16 @@
             <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
                 <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                     <tr md-row>
-                        <th md-column md-numeric>#</th>
-						<th md-column md-numeric>CEDULA</th>
-						<th md-column md-numeric>NOMBRES COMPLETOS</th>
-						<th md-column md-numeric>EMAIL</th>
-						<th md-column md-numeric>PERFIL</th>
+                      <th md-column md-numeric>FOTO</th>
+          						<th md-column md-numeric>CEDULA</th>
+          						<th md-column md-numeric>NOMBRES COMPLETOS</th>
+          						<th md-column md-numeric>EMAIL</th>
+          						<th md-column md-numeric>PERFIL</th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="usuario in usuarios">
-                        <td md-cell>{{usuario.id}}</td>
+                    <tr md-row md-select="usuario" md-select-id="name" md-auto-select ng-repeat="usuario in usuarios">
+                        <td md-cell><img ng-src="{{ip+usuario.foto}}" width="30" height="30" style="border-radius: 50%;" aria-label=""></td>
                         <td md-cell>{{usuario.cedula}}</td>
                         <td md-cell>{{usuario.nombres}}</td>
                         <td md-cell>{{usuario.email}}</td>
@@ -122,7 +139,7 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{usuarios.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+        <md-table-pagination md-limit="query_amigos.limit" md-limit-options="[5, 10, 15]" md-page="query_amigos.page" md-total="{{usuarios.count}}" md-on-paginate="getAmigos" md-page-select></md-table-pagination>
     </md-card-content>
     </md-card>
     </div>
