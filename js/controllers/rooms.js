@@ -1,5 +1,5 @@
 var app = angular.module('app');
-app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,ServiciosRooms,ServiciosAmigos) {
+app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,ServiciosRooms,ServiciosAmigos,$location) {
   $scope.see=false;
   $scope.selected = [];
   $scope.limitOptions = [5, 10, 15];
@@ -73,7 +73,8 @@ app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,S
   	};
 
   $scope.startSala = function (idsala) {
-    console.log(idsala);
+    var url='/home/Video/'+idsala;
+    $location.path(url);
     };
     
   $scope.getAmigos();

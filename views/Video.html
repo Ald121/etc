@@ -1,0 +1,30 @@
+<div layout="row">
+    <div flex>
+        <md-card>
+            <md-toolbar class="demo-toolbar">
+                <div class="md-toolbar-tools">
+                    <h3 class="ng-binding"><md-icon md-svg-src="img/icons/conference-hall.svg" class="name"></md-icon> Conferencia</h3>
+                    <span flex="" class="flex"></span>
+                </div>
+            </md-toolbar>
+            <md-card-content>
+                  <span>
+                    <a href="" target="_blank" title="Open this link in new tab. Then your room will be private!">
+                        <code>
+                            <strong id="unique-token"></strong>
+                        </code>
+                    </a>
+                </span>
+                <input type="text" id="conference-name" ng-show="false">
+                <md-button id="setup-new-conference" ng-show="tipo_user=='ADMIN'" class="md-raised md-primary" type="button">
+                INICIAR CONFERENCIA
+                </md-button>
+            <!-- list of all available broadcasting rooms -->
+            <table style="width: 100%;" id="rooms-list"></table>
+            <!-- local/remote videos container -->
+            <div id="videos-container"></div>
+
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

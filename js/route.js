@@ -12,6 +12,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
             .when('/home/AuditoriaIngresos',          'home.AuditoriaIngresos')
             .when('/home/Reporte-temas',          'home.Reporte-temas')
             .when('/home/Dashboard-C',          'home.Dashboard-C')
+            .when('/home/Video/:nombre',          'home.Video')
             .segment('login', {
                         templateUrl: 'views/login.html',
                         controller:'loginController'
@@ -49,6 +50,12 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                         // 'default': true,
                         templateUrl: 'views/Reporte-temas.html',
                         // controller: 'SubirFacCtrl'
+                    })
+                    .segment('Video', {
+                        // 'default': true,
+                        templateUrl: 'views/Video.html',
+                        controller: 'VideoController',
+                        dependencies: ['nombre']
                     })
                     .up()
             .up()
