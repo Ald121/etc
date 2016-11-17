@@ -2,11 +2,8 @@ var app=angular.module('app');
 
 app.controller('VideoController', function($scope,$routeParams,$location,$localStorage) {
     $scope.tipo_user=$localStorage.datosUser.tipo_user;
-    // if ($localStorage.datosUser.tipo_user=='ADMIN') {
-    //     var hash=(Math.random() * new Date().getTime()).toString(36).toUpperCase().replace(/\./g, '-');
-    //     $location.hash(hash);
-    // }
-var nombre_sala=$routeParams.nombre;
+var nombre_sala=$localStorage.nombre_room;
+$location.hash($localStorage.hash);
 console.log(nombre_sala);
 
  var connection = new RTCMultiConnection();

@@ -106,7 +106,7 @@
                         </thead>
                         <tbody md-body>
                             <tr md-row md-select="room" md-select-id="name" md-auto-select ng-repeat="room in rooms">
-                                <td md-cell>{{room.nombre_tema}}</td>
+                                <td md-cell>{{room.hash}}</td>
                                 <td md-cell>{{room.fecha}}</td>
                                 <td md-cell>{{room.hora}}</td>
                                 <td md-cell>
@@ -118,7 +118,7 @@
                                     <md-button class="md-raised md-primary" ng-show="room.estado==='PAUSA'" type="button">
                                         REANUNDAR
                                     </md-button>
-                                    <md-button class="md-raised md-primary" ng-click="startSala(room.nombre_tema)" ng-show="room.estado==='ENESPERA'" type="button">
+                                    <md-button class="md-raised md-primary" ng-click="startSala(room)" ng-show="room.estado==='ENESPERA'" type="button">
                                         INICIAR
                                     </md-button>
                                 </td>
@@ -131,25 +131,3 @@
         </md-card>
     </div>
 </div>
-<style type="text/css">
-    .tab-left {
-        margin-left: 5%;
-    }
-    
-    .state-warnning {
-        color: #ffaa27;
-    }
-    
-    .state-ok {
-        color: rgb(76, 175, 80);
-    }
-    
-    .state-error {
-        color: red;
-    }
-    
-    .state-info {
-        color: rgb(0, 134, 244);
-        ;
-    }
-</style>

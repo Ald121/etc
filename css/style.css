@@ -1,0 +1,20 @@
+    .tab-left {
+        margin-left: 5%;
+    }
+    
+    .state-warnning {
+        color: #ffaa27;
+    }
+    
+    .state-ok {
+        color: rgb(76, 175, 80);
+    }
+    
+    .state-error {
+        color: red;
+    }
+    
+    .state-info {
+        color: rgb(0, 134, 244);
+        ;
+    }

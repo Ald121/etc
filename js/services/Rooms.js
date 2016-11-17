@@ -19,4 +19,24 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
             }
         });
     };
+
+    this.misRoomsCliente = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/getRoomsCliente", {},{
+            get: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
+
+     this.getEstadoRoom = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/getEstadoRoom", {},{
+            get: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
 });

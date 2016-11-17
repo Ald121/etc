@@ -12,7 +12,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
             .when('/home/AuditoriaIngresos',          'home.AuditoriaIngresos')
             .when('/home/Reporte-temas',          'home.Reporte-temas')
             .when('/home/Dashboard-C',          'home.Dashboard-C')
-            .when('/home/Video/:nombre',          'home.Video')
+            .when('/home/Video/',          'home.Video')
             .segment('login', {
                         templateUrl: 'views/login.html',
                         controller:'loginController'
@@ -25,7 +25,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                     .segment('Dashboard-C', {
                         // 'default': true,
                         templateUrl: 'views/Inicio-Clientes.html',
-                        // controller: 'appsCtrl'
+                        controller: 'RoomsClientesController'
                     })
                     .segment('AddUser', {
                         // 'default': true,
@@ -55,7 +55,7 @@ app.config(function($routeSegmentProvider, $routeProvider) {
                         // 'default': true,
                         templateUrl: 'views/Video.html',
                         controller: 'VideoController',
-                        dependencies: ['nombre']
+                        // dependencies: ['nombre']
                     })
                     .up()
             .up()

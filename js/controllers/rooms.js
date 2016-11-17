@@ -1,9 +1,14 @@
 var app = angular.module('app');
-app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,ServiciosRooms,ServiciosAmigos,$location) {
+app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,ServiciosRooms,ServiciosAmigos,$location,$localStorage) {
   $scope.see=false;
   $scope.selected = [];
   $scope.limitOptions = [5, 10, 15];
   
+    if ($localStorage.datosUser.tipo_user=='ADMIN') {
+        var hash=(Math.random() * new Date().getTime()).toString(36).toUpperCase().replace(/\./g, '-');
+        $location.hash(hash);
+    }
+
   $scope.options = {
     rowSelection: true,
     multiSelect: true,
@@ -48,7 +53,7 @@ app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,S
   	$scope.crear_sala = function () {
   		$scope.see=true;
   		var original = $scope.user;
-   	ServiciosRooms.addRoom().send({nombre_tema:$scope.data.nombre_tema,saludo:$scope.data.saludo,cuerpo:$scope.data.cuerpo,invitados:$scope.selected}).$promise.then(function(data){
+   	ServiciosRooms.addRoom().send({nombre_tema:$scope.data.nombre_tema,saludo:$scope.data.saludo,cuerpo:$scope.data.cuerpo,invitados:$scope.selected,hash:$location.hash()}).$promise.then(function(data){
    		console.log(data.respuesta);
    		if (data.respuesta==true) {
 			$scope.selected = [];
@@ -72,8 +77,10 @@ app.controller('RoomsController',function ($mdEditDialog, $q, $scope, $timeout,S
     ServiciosRooms.misRooms().get($scope.query_rooms, success_salas).$promise;
   	};
 
-  $scope.startSala = function (idsala) {
-    var url='/home/Video/'+idsala;
+  $scope.startSala = function (room) {
+    $localStorage.nombre_room=room.nombre_tema;
+    $localStorage.hash=room.hash;
+    var url='/home/Video/';
     $location.path(url);
     };
     

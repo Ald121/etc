@@ -71,8 +71,8 @@ app.controller('homeController',function($scope,$location,$localStorage,Servicio
 		$location.path('/');
 	}  
 
-        $rootScope.$on("getRemoteAmigos", function(){
+    $rootScope.$on("getRemoteAmigos", function(){
            $scope.getAmigos();
-        });
+    });
 
 });
