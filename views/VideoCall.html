@@ -56,20 +56,20 @@
                             </thead>
                             <tbody md-body>
                                 <tr md-row md-select="usuario" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="usuario in usuarios">
-                                    <td md-cell><img ng-src="{{ip+usuario.foto}}" width="30" style="border-radius: 50%;" aria-label=""></td>
+                                    <td md-cell><img ng-src="{{ip+usuario.foto}}" width="30" height="30" style="border-radius: 50%;" aria-label=""></td>
                                     <td md-cell>{{usuario.nombres+' '+usuario.apellidos}}</td>
                                     <td md-cell>{{usuario.email}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </md-table-container>
-                    <md-table-pagination md-limit="query_amigos.limit" md-limit-options="limitOptions" md-page="query_amigos.page" md-total="{{usuarios.count}}" md-on-paginate="getAmigos" md-page-select></md-table-pagination>
+                    <md-table-pagination md-limit="query_amigos.limit" md-limit-options="limitOptions" md-page="query_amigos.page" md-total="{{total}}" md-on-paginate="getAmigos" md-page-select></md-table-pagination>
                 </form>
             </md-card-content>
             <md-dialog-actions layout="row">
                 <span flex></span>
                 <div style="padding-top: 18px;" ng-show="see"><img src="img/loader.gif" width="25"></div>
-                <md-button class="md-raised md-primary" type="submit" ng-click="crear_sala()" ng-disabled="addform.$invalid">
+                <md-button class="md-raised md-primary" type="submit" ng-click="crear_sala()" ng-disabled="selected.length==0">
                     CREAR SALA Y ENVIAR SOLICITUDES
                 </md-button>
             </md-dialog-actions>
@@ -81,6 +81,7 @@
                 <div class="md-toolbar-tools">
                     <h3 class="ng-binding"><md-icon md-svg-src="img/icons/list-users.svg" class="name"></md-icon> Listado de Salas</h3>
                     <span flex="" class="flex"></span>
+                    <div id="table-scroll"></div>
                 </div>
             </md-toolbar>
             <md-card-content>
@@ -88,25 +89,34 @@
                     <md-input-container>
                         <label>Buscar............</label>
                         <input type="text" ng-model="filterText" flex="50">
-                        <md-button class="md-icon-button" aria-label="Eliminar Usario">
+                        <md-button class="md-icon-button" aria-label="Eliminar Usuario" ng-click="deleteSala()">
+                             <md-tooltip md-direction="top">
+                              Eliminar Sala
+                            </md-tooltip>
                             <md-icon md-svg-src="img/icons/delete.svg"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Actualizar Usuario" ng-click="getRooms()">
+                            <md-tooltip md-direction="top">
+                              Actualizar lista
+                            </md-tooltip>
+                            <md-icon md-svg-src="img/icons/refresh.svg"></md-icon>
                         </md-button>
                     </md-input-container>
                 </md-toolbar>
                 <md-table-container>
-                    <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                    <table md-table md-row-select multiple ng-model="selected_rooms" md-progress="promise">
                         <thead md-head md-order="query.order" md-on-reorder="getRooms">
                             <tr md-row>
                                 <th md-column md-numeric>TÍTULO</th>
                                 <th md-column md-numeric>FECHA</th>
                                 <th md-column md-numeric>HORA</th>
                                 <th md-column md-numeric>ESTADO</th>
-                                <th md-column md-numeric>REANUDAR</th>
+                                <th md-column md-numeric>ACCIÓN</th>
                             </tr>
                         </thead>
                         <tbody md-body>
                             <tr md-row md-select="room" md-select-id="name" md-auto-select ng-repeat="room in rooms">
-                                <td md-cell>{{room.hash}}</td>
+                                <td md-cell>{{room.nombre_tema}}</td>
                                 <td md-cell>{{room.fecha}}</td>
                                 <td md-cell>{{room.hora}}</td>
                                 <td md-cell>
@@ -115,18 +125,33 @@
                                     </div>
                                 </td>
                                 <td md-cell>
-                                    <md-button class="md-raised md-primary" ng-show="room.estado==='PAUSA'" type="button">
-                                        REANUNDAR
+                                    <md-button class="md-icon-button" ng-click="startSala(room)" ng-show="room.estado==='PAUSA'" type="button">
+                                        <md-tooltip md-direction="top">
+                                          Reanudar Sala
+                                        </md-tooltip>
+                                        <md-icon md-svg-src="img/icons/return.svg"></md-icon>
+                                    </md-button>
+                                    <md-button class="md-icon-button" ng-click="stopSala(room)" ng-show="room.estado==='ACTIVO'" type="button">
+                                        <md-tooltip md-direction="top">
+                                         Detener Sala
+                                         </md-tooltip>
+                                        <md-icon md-svg-src="img/icons/stop.svg"></md-icon>
+                                    </md-button>
+                                    <md-button class="md-icon-button" ng-click="pauseSala(room)" ng-show="room.estado==='ACTIVO'" type="button">
+                                        <md-tooltip md-direction="top">
+                                          Pausar Sala
+                                        </md-tooltip>
+                                        <md-icon md-svg-src="img/icons/pause.svg"></md-icon>
                                     </md-button>
                                     <md-button class="md-raised md-primary" ng-click="startSala(room)" ng-show="room.estado==='ENESPERA'" type="button">
-                                        INICIAR
+                                        INGRESAR
                                     </md-button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </md-table-container>
-                <md-table-pagination md-limit="query_rooms.limit" md-limit-options="limitOptions" md-page="query_rooms.page" md-total="{{usuarios.count}}" md-on-paginate="getRooms" md-page-select></md-table-pagination>
+                <md-table-pagination md-limit="query_rooms.limit" md-limit-options="limitOptions" md-page="query_rooms.page" md-total="{{total_room}}" md-on-paginate="getRooms" md-page-select></md-table-pagination>
             </md-card-content>
         </md-card>
     </div>

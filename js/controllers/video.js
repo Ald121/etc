@@ -38,18 +38,17 @@ console.log(nombre_sala);
             if (sessions[session.sessionid]) return;
             sessions[session.sessionid] = session;
             var tr = document.createElement('tr');
-            tr.innerHTML = '<td><strong>' + session.sessionid + '</strong> is running a conference!</td>' +
-                '<td><button class="join">Ingresar</button></td>';
+            tr.innerHTML = '<td><strong>' + session.sessionid +'<td><button class="md-raised md-primary">Ingresar</button></td>';
             roomsList.insertBefore(tr, roomsList.firstChild);
             var joinRoomButton = tr.querySelector('.join');
             joinRoomButton.setAttribute('data-sessionid', session.sessionid);
-            joinRoomButton.onclick = function() {
+            // joinRoomButton.onclick = function() {
                 this.disabled = true;
                 var sessionid = this.getAttribute('data-sessionid');
                 session = sessions[sessionid];
                 if (!session) throw 'No such session exists.';
                 connection.join(session);
-            };
+            // };
         };
         var videosContainer = document.getElementById('videos-container') || document.body;
         var roomsList = document.getElementById('rooms-list');

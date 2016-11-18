@@ -1,14 +1,15 @@
 var app=angular.module('app');
 
-app.controller('AmigosController', function($scope, ServiciosGenerales, $localStorage, FileUploader,$rootScope) {
-
+app.controller('AmigosController', function($scope, ServiciosGenerales,$localStorage, FileUploader,$rootScope,$document) {
+  var duration = 1000; //milliseconds
+  var offset = 30; 
    	$scope.see=false;
 	var uploader = $scope.uploader = new FileUploader({
         url: ServiciosGenerales.server().ETC()+'public/addAmigo',
         headers: {
         Authorization: 'Bearer ' + $localStorage.token,
-        }
-        // removeAfterUpload:true
+        },
+        removeAfterUpload:true
     });
     // FILTERS
     // uploader.filters.push({
@@ -31,9 +32,19 @@ app.controller('AmigosController', function($scope, ServiciosGenerales, $localSt
     }];
     };
 
+    uploader.onCompleteAll = function() {
+        var original = $scope.user;
+        var someElement = angular.element(document.getElementById('table-users'));
+       $rootScope.$emit("getRemoteAmigos", {});
+       $document.scrollToElement(someElement, offset, duration);
+       $scope.data= angular.copy(original);
+        $scope.addform.$setPristine();
+        $scope.addform.$setValidity();
+        $scope.addform.$setUntouched();
+    };
+
     $scope.add_user = function () {
     $scope.uploader.uploadAll();
-    $rootScope.$emit("getRemoteAmigos", {});
     };
 
     // -------------------------------

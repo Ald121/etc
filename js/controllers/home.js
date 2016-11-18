@@ -2,12 +2,13 @@ var app=angular.module('app');
 
 app.controller('homeController',function($scope,$location,$localStorage,ServiciosGenerales,ServiciosAmigos,$rootScope){
 	$scope.selected = [];
+	$scope.total=0;
 
 	$scope.query_amigos = {
 	    filter: '',
 	    num_registros: 5,
 	    page:1,
-	    limit: '10',
+	    limit: '5',
 	    page_num: 1,
 	    fecha_inicio:'',
 	    fecha_fin:'',
@@ -16,11 +17,20 @@ app.controller('homeController',function($scope,$location,$localStorage,Servicio
 
 	function success(desserts) {
     $scope.usuarios = desserts.respuesta.data;
+    $scope.total=desserts.respuesta.total;
   	};
 
 	 $scope.getAmigos = function () {
     $scope.promise_users = ServiciosAmigos.misAmigos().get($scope.query_amigos, success).$promise;
   	};
+
+  	$scope.deleteAmigo = function () {
+       ServiciosAmigos.deleteAmigo().delete({amigos:$scope.selected}).$promise.then(function(data){
+        if (data.respuesta) {
+          $scope.getAmigos();
+        }
+       });
+    }
 
 	if ($localStorage.datosUser) {
 		$scope.datosUser=$localStorage.datosUser;

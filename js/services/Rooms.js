@@ -20,6 +20,16 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         });
     };
 
+    this.deleteRoom = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/deleteRoom", {},{
+            delete: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
+
     this.misRoomsCliente = function() {
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/getRoomsCliente", {},{
@@ -39,4 +49,36 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
             }
         });
     };
+
+    this.stopRoom = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/stopRoom", {},{
+            stop: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
+
+    this.startRoom = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/startRoom", {},{
+            start: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
+
+    this.pausaRoom = function() {
+        var url_server=ServiciosGenerales.server().ETC();
+        return $resource(url_server+"public/pausaRoom", {},{
+            pausar: {
+                method: 'POST', isArray: false,
+                params:{token:$localStorage.token}
+            }
+        });
+    };
+
+
 });
