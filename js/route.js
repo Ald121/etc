@@ -5,7 +5,8 @@ app.config(function($routeSegmentProvider, $routeProvider) {
       
         $routeSegmentProvider
             .when('/',          'login')
-            .when('/home',          'home')
+            .when('/home',       'home')
+            .when('/Registro',       'registro')
             .when('/home/AddUser',          'home.AddUser')
             .when('/home/SearchUser',          'home.SearchUser')
             .when('/home/VideoCall',          'home.VideoCall')
@@ -16,6 +17,10 @@ app.config(function($routeSegmentProvider, $routeProvider) {
             .segment('login', {
                         templateUrl: 'views/login.html',
                         controller:'loginController'
+                    })
+            .segment('registro', {
+                        templateUrl: 'views/Registro.html',
+                        controller:'RegistroController'
                     })
             .segment('home', {
                         templateUrl: 'views/home.html',
