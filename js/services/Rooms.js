@@ -4,7 +4,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
 	    return $resource(url_server+"public/getRooms", {},{
             get: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -14,7 +14,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/addRoom", {},{
             send: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -24,7 +24,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/deleteRoom", {},{
             delete: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -34,7 +34,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/getRoomsCliente", {},{
             get: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -44,7 +44,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/getEstadoRoom", {},{
             get: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -54,7 +54,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/stopRoom", {},{
             stop: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -64,7 +64,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/startRoom", {},{
             start: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });
@@ -74,7 +74,7 @@ app.service('ServiciosRooms', function($resource,ServiciosGenerales,$localStorag
         var url_server=ServiciosGenerales.server().ETC();
         return $resource(url_server+"public/pausaRoom", {},{
             pausar: {
-                method: 'POST', isArray: false,
+                method: 'GET', isArray: false,
                 params:{token:$localStorage.token}
             }
         });

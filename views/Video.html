@@ -16,9 +16,40 @@
                     </a>
                 </span>
                 <input type="text" id="conference-name" ng-show="false">
-                <md-button id="setup-new-conference" ng-show="tipo_user=='ADMIN'" class="md-raised md-primary" type="button">
-                INICIAR CONFERENCIA
+                <md-button id="setup-new-conference" class="md-icon-button" ng-click="startSala()" ng-show="tipo_user=='ADMIN'" type="button">
+                    <md-tooltip md-direction="top">
+                     Iniciar Conferencia
+                     </md-tooltip>
+                    <md-icon md-svg-src="img/icons/play.svg"></md-icon>
                 </md-button>
+                <md-button class="md-icon-button" ng-click="stopSala()" ng-show="tipo_user=='ADMIN'" type="button">
+                    <md-tooltip md-direction="top">
+                     Detener Conferencia
+                     </md-tooltip>
+                    <md-icon md-svg-src="img/icons/stop.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="pauseSala()" ng-show="tipo_user=='ADMIN'" type="button">
+                    <md-tooltip md-direction="top">
+                      Pausar Conferencia
+                    </md-tooltip>
+                    <md-icon md-svg-src="img/icons/pause.svg"></md-icon>
+                </md-button>
+
+ <section class="experiment">
+            <div class="make-center">
+                <input type="text" id="room-id" value="abcdef">
+                <button id="open-room">Open Room</button>
+                <button id="join-room">Join Room</button>
+
+                <br><br>
+                <input type="text" id="input-text-chat" placeholder="Enter Text Chat" disabled>
+                <button id="share-file" disabled>Share File</button>
+
+                <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+            </div>
+            <div id="videos-container"></div>
+        </section>
+
             <!-- list of all available broadcasting rooms -->
             <table style="width: 100%;" id="rooms-list"></table>
             <!-- local/remote videos container -->

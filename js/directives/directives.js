@@ -1,5 +1,5 @@
 'use strict';
-angular.module('app')
+var app= angular.module('app')
     // Angular File Upload module does not include this directive
     // Only for example
     /**
@@ -7,7 +7,7 @@ angular.module('app')
     * @author: nerv
     * @version: 0.1.2, 2014-01-09
     */
-    .directive('ngThumb', ['$window', function($window) {
+    app.directive('ngThumb', ['$window', function($window) {
         var helper = {
             support: !!($window.FileReader && $window.CanvasRenderingContext2D),
             isFile: function(item) {
@@ -50,3 +50,39 @@ angular.module('app')
             }
         };
     }]);
+
+app.directive('numeros', function () {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
+            modelCtrl.$parsers.push(function (inputValue) {
+                if (inputValue == undefined) return '';
+                var transformedInput = inputValue.replace(/[^0-9]/g, '');
+                if (transformedInput !== inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+                return transformedInput;
+            });
+        }
+    };
+});
+
+app.directive('letras', function () {
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
+            modelCtrl.$parsers.push(function (inputValue) {
+                if (inputValue == undefined) return '';
+                var transformedInput = inputValue.replace(/[^A-Za-z ]/g, '');
+                if (transformedInput !== inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+                return transformedInput;
+            });
+        }
+    };
+});
